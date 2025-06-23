@@ -1,4 +1,4 @@
-package com.firstproject.crud;
+package com.firstproject.crud.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
