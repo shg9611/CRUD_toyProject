@@ -6,8 +6,12 @@ import com.firstproject.crud.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -15,6 +19,11 @@ public class AritcleController {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @GetMapping("/articles")
+    public String showArticles(){
+        return "show";
+    }
 
     @GetMapping("/articles/new")
     public String newArticleForm(){
@@ -37,5 +46,20 @@ public class AritcleController {
 
 
         return "";
+    }
+
+    @GetMapping("/articles/{id}")
+    public String show(@PathVariable Long id, Model model){
+        log.info("id = "+id);
+
+        //id 조회해 db에서 데이터 가져오기
+
+        Article articleData=articleRepository.findById(id).orElse(null);
+
+        //모델에 가져온 데이터 등록하기
+        model.addAttribute("article",articleData);
+
+        //데이터 보이는 뷰 페이지 반환하기
+        return "articles/show";
     }
 }
