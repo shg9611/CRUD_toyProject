@@ -3,11 +3,13 @@ package com.firstproject.crud.controller;
 import com.firstproject.crud.dto.ArticleForm;
 import com.firstproject.crud.entity.Article;
 import com.firstproject.crud.repository.ArticleRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+@Slf4j
 @Controller
 public class AritcleController {
 
@@ -21,14 +23,18 @@ public class AritcleController {
 
     @PostMapping("/articles/create")
     public String createArticle(ArticleForm form){
-        System.out.println(form.toString());
+
+        log.info(form.toString());
         
         //dto를 엔티티로 변환
         Article article = form.toEntity();
-        System.out.println(article);
+        log.info(article.toString());
+
+
         // repository로 엔티티를 db에 저장
         Article saved=articleRepository.save(article);
-        System.out.println(saved);
+        log.info(saved.toString());
+
 
         return "";
     }
