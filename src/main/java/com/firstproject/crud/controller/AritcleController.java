@@ -52,7 +52,7 @@ public class AritcleController {
         log.info(saved.toString());
 
 
-        return "";
+       return "redirect:/articles/"+saved.getId();
     }
 
     @GetMapping("/articles/{id}")
