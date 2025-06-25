@@ -69,4 +69,32 @@ public class AritcleController {
         //데이터 보이는 뷰 페이지 반환하기
         return "articles/show";
     }
+
+    @GetMapping("/articles/{id}/edit")
+    public String edit(@PathVariable Long id, Model model){
+
+        Article editArticle = articleRepository.findById(id).orElse(null);
+        model.addAttribute("editArticle",editArticle);
+
+        return "articles/edit";
+    }
+
+
+    @PostMapping("/articles/update")
+    public String update(ArticleForm form){
+
+        Article formEntity=form.toEntity();
+
+        log.info(formEntity.toString());
+
+        Article target=articleRepository.findById(formEntity.getId()).orElse(null);
+
+        if(target!=null){
+            articleRepository.save(formEntity);
+        }
+
+        return "redirect:/articles/"+formEntity.getId();
+    }
+
 }
+
