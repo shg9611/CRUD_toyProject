@@ -7,9 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -96,5 +98,21 @@ public class AritcleController {
         return "redirect:/articles/"+formEntity.getId();
     }
 
+    @GetMapping("/articles/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes rttr){
+
+        rttr.addFlashAttribute("msg", "정상적으로 삭제 되었습니다");
+
+        log.info("삭제 요청 들어옴");
+
+        Article target=articleRepository.findById(id).orElse(null);
+        log.info(target.toString());
+
+        if (target!=null){
+            articleRepository.delete(target);
+        }
+
+        return "redirect:/articles";
+    }
 }
 
