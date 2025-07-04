@@ -13,4 +13,5 @@ public class ViewController {
         model.addAttribute("username","신호근");
         return "defaultPage";
     }
+
 }
