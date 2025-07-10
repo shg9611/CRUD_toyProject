@@ -55,6 +55,54 @@ class CommentRepositoryTest {
             //비교 및 검증
             assertEquals(expected,commentList,"1번 글의 댓글 모두 출력");
         }
+
+        //case 3: 9번 게시글의 모든 댓글 조회
+        {
+            //입력 데이터 준비
+            Long articleId = 9L;
+
+            //실제 데이터
+            List<Comment> commentList = commentRepository.findByArticleId(articleId);
+
+            //예상 데이터
+            Article article = null;
+            List<Comment> expected = Arrays.asList();
+
+            //비교 및 검증
+            assertEquals(expected,commentList,"9번 글의 댓글 모두 출력");
+        }
+
+        //case 4: 999번 게시글의 모든 댓글 조회
+        {
+            //입력 데이터 준비
+            Long articleId = 999L;
+
+            //실제 데이터
+            List<Comment> commentList = commentRepository.findByArticleId(articleId);
+
+            //예상 데이터
+            Article article = null;
+            List<Comment> expected = Arrays.asList();
+
+            //비교 및 검증
+            assertEquals(expected,commentList,"999번 글의 댓글 모두 출력");
+        }
+
+        //case 5: -1번 게시글의 모든 댓글 조회
+        {
+            //입력 데이터 준비
+            Long articleId = -1L;
+
+            //실제 데이터
+            List<Comment> commentList = commentRepository.findByArticleId(articleId);
+
+            //예상 데이터
+            Article article = null;
+            List<Comment> expected = Arrays.asList();
+
+            //비교 및 검증
+            assertEquals(expected,commentList,"-1번 글의 댓글 모두 출력");
+        }
     }
 
     @Test
@@ -104,5 +152,37 @@ class CommentRepositoryTest {
             //비교 및 검증
             assertEquals(expected.toString(),commentList.toString(), "Kim의 모든 댓글 출력");
         }
+
+        //case 3: null의 모든 댓글 조회
+        {
+            //입력 데이터 준비
+            String nickname = null;
+
+            //실제 데이터
+            List<Comment> commentList = commentRepository.findByNickname(nickname);
+
+            //예상 데이터
+            List<Comment> expected = Arrays.asList();
+
+            //비교 및 검증
+            assertEquals(expected.toString(),commentList.toString(), "null의 모든 댓글 출력");
+        }
+
+        //case 4: ""의 모든 댓글 조회
+        {
+            //입력 데이터 준비
+            String nickname = "";
+
+            //실제 데이터
+            List<Comment> commentList = commentRepository.findByNickname(nickname);
+
+            //예상 데이터
+            List<Comment> expected = Arrays.asList();
+
+            //비교 및 검증
+            assertEquals(expected.toString(),commentList.toString(), "\"\"의 모든 댓글 출력");
+        }
+
+
     }
 }
