@@ -46,5 +46,21 @@ public class Comment {
                 dto.getBody()
         );
     }
+
+    public Comment patch(CommentDto dto){
+        if (dto.getId() != this.id){
+            throw new IllegalArgumentException("댓글 수정 실패! 잘못된 id 입력");
+        }
+
+
+        if (dto.getNickname()!=null){
+            this.nickname= dto.getNickname();
+        }
+        if (dto.getBody()!=null){
+            this.body= dto.getBody();
+        }
+
+        return this;
+    }
 }
 
