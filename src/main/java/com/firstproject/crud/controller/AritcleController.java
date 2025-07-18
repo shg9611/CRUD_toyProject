@@ -1,8 +1,10 @@
 package com.firstproject.crud.controller;
 
 import com.firstproject.crud.dto.ArticleForm;
+import com.firstproject.crud.dto.CommentDto;
 import com.firstproject.crud.entity.Article;
 import com.firstproject.crud.repository.ArticleRepository;
+import com.firstproject.crud.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,9 @@ public class AritcleController {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/articles")
     public String index(Model model){
@@ -64,9 +69,11 @@ public class AritcleController {
         //id 조회해 db에서 데이터 가져오기
 
         Article articleData=articleRepository.findById(id).orElse(null);
+        List<CommentDto> commentDtos = commentService.showComment(id);
 
         //모델에 가져온 데이터 등록하기
         model.addAttribute("article",articleData);
+        model.addAttribute("commentDtos",commentDtos);
 
         //데이터 보이는 뷰 페이지 반환하기
         return "articles/show";
